@@ -52,7 +52,7 @@ namespace Portal
             con.Close();
 
             // Displaying a message box to confirm that the user was added successfully
-            MessageBox.Show("DONE!!!");
+            MessageBox.Show("DONE!!!!");
 
             textBox1.Clear();
           
