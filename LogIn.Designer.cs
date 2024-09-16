@@ -1,6 +1,6 @@
 ﻿namespace Portal
 {
-    partial class Registration
+    partial class LogIn
     {
         /// <summary>
         /// Required designer variable.

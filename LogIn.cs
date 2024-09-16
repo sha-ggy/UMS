@@ -11,9 +11,9 @@ using System.Windows.Forms;
 
 namespace Portal
 {
-    public partial class Registration : Form
+    public partial class LogIn : Form
     {
-        public Registration()
+        public LogIn()
         {
             InitializeComponent();
         }
@@ -59,6 +59,8 @@ namespace Portal
             textBox2.Clear();
             textBox3.Clear();
             textBox4.Clear();
+
+
         }
 
         
