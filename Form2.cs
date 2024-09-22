@@ -17,6 +17,7 @@ namespace Portal
         public Form2()
         {
             InitializeComponent();
+            customDesign();
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -29,34 +30,35 @@ namespace Portal
 
         }
 
-        private void otp_Click(object sender, EventArgs e)
+        private void customDesign()
         {
-            // Connection string to connect to the local database (SQL Server LocalDB)
-            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Ashfaq\OneDrive - American International University-Bangladesh\Documents\Emailaddress.mdf"";Integrated Security=True;Connect Timeout=30";
+            panel2.Visible = false;
+            panel1.Visible = false;
 
-            // Creating the SQL connection object with the specified connection string
-            SqlConnection con = new SqlConnection(ConnectionString);
-
-            // Opening the connection to the database
-            con.Open();
-
-            // SQL command to insert data into the UserTable
-            SqlCommand sq2 = new SqlCommand("INSERT INTO Emailaddress(Emailaddress) VALUES(@Emailaddress)", con);
-
-            sq2.Parameters.AddWithValue("@Emailaddress", textBox1.Text);
-            
-
-            // Executing the SQL command to insert the data into the database
-            sq2.ExecuteNonQuery();
-
-            con.Close();
-
-            // Displaying a message box to confirm that the user was added successfully
-            MessageBox.Show("DONE!!!!");
-
-            textBox1.Clear();
-          
         }
+        private void hideSubmenu()
+        {
+            if (panel1.Visible == true)
+            {
+                panel1.Visible = false;
+            }
+            if (panel2.Visible == true)
+            {
+                panel2.Visible = false;
+            }
+        }
+        private void showSubmenu(Panel submenu)
+        {
+            if (submenu.Visible == false)
+            {
+                hideSubmenu();
+                submenu.Visible = true;
+
+            }
+            else
+                submenu.Visible = false;
+        }
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -70,5 +72,50 @@ namespace Portal
             obj.Show();
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 obj = new Form1();    
+            obj.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            hideSubmenu();
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+            hideSubmenu();
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            showSubmenu(panel1);
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            hideSubmenu();
+        }
+
+        private void Button_submit_Click(object sender, EventArgs e)
+        {
+            hideSubmenu();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            hideSubmenu();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            showSubmenu(panel2);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            hideSubmenu();
+        }
     }
 }

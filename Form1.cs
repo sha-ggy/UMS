@@ -1,26 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Portal
 {
     public partial class Form1 : Form
     {
+
         public Form1()
         {
             InitializeComponent();
         }
-
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-
         }
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -41,7 +34,7 @@ namespace Portal
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form2 ff = new Form2();
+            Registration ff = new Registration();
             ff.Show();
         }
 
@@ -63,8 +56,8 @@ namespace Portal
         private void button2_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Registration registration = new Registration();
-            registration.Show();
+            home ff = new home();
+            ff.Show();
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
@@ -80,6 +73,19 @@ namespace Portal
         private void label4_Click(object sender, EventArgs e)
         {
 
+        }
+
+        
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form2 ff = new Form2();
+            ff.Show();
         }
     }
 }

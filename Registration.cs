@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Portal
@@ -28,10 +21,12 @@ namespace Portal
 
         }
 
+
+
         private void Submitbtn_Click(object sender, EventArgs e)
         {
             // Connection string to connect to the local database (SQL Server LocalDB)
-            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Ashfaq\OneDrive - American International University-Bangladesh\Documents\RegData.mdf"";Integrated Security=True;Connect Timeout=30";
+            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Ashfaq\OneDrive - American International University-Bangladesh\Documents\RegData.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
 
             // Creating the SQL connection object with the specified connection string
             SqlConnection con = new SqlConnection(ConnectionString);
@@ -44,7 +39,7 @@ namespace Portal
 
             sq2.Parameters.AddWithValue("@Id", textBox1.Text);
             sq2.Parameters.AddWithValue("@Name", textBox3.Text);
-            sq2.Parameters.AddWithValue("@Age", int.Parse(textBox2.Text)); // Because age is integer 
+            sq2.Parameters.AddWithValue("@Email", textBox2.Text); // Because age is integer 
             sq2.Parameters.AddWithValue("@Password", textBox4.Text);
 
             // Executing the SQL command to insert the data into the database
@@ -63,5 +58,16 @@ namespace Portal
 
         
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Form1 x = new Form1();
+            x.Show();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

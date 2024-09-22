@@ -63,6 +63,36 @@ namespace Portal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1407802_200 {
+            get {
+                object obj = ResourceManager.GetObject("1407802-200", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _360_F_162476658_ZoIJ9RKaoch0eTLQck8yxQMEuLsPkQ19 {
+            get {
+                object obj = ResourceManager.GetObject("360_F_162476658_ZoIJ9RKaoch0eTLQck8yxQMEuLsPkQ19", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _437939903_122116078040253304_7322045871527861346_n {
+            get {
+                object obj = ResourceManager.GetObject("437939903_122116078040253304_7322045871527861346_n", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap download {
             get {
                 object obj = ResourceManager.GetObject("download", resourceCulture);
@@ -73,9 +103,39 @@ namespace Portal.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap hombutton_white_home_button_11563211148zdfdwfoi16 {
+            get {
+                object obj = ResourceManager.GetObject("hombutton-white-home-button-11563211148zdfdwfoi16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap imgbin_computer_icons_home_button_sign_home_MkjkgcTaBkXHYRzyyEgLbmQ2m {
+            get {
+                object obj = ResourceManager.GetObject("imgbin-computer-icons-home-button-sign-home-MkjkgcTaBkXHYRzyyEgLbmQ2m", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap password_reset_icon_for_apps_vector {
             get {
                 object obj = ResourceManager.GetObject("password-reset-icon-for-apps-vector", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Screenshot_2024_09_18_112953 {
+            get {
+                object obj = ResourceManager.GetObject("Screenshot 2024-09-18 112953", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
