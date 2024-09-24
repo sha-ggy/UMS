@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.Text;
+
 
 namespace Portal
 {
     public partial class Registration : Form
     {
+
+
+
+        string studentDbConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\project\Portal\Portal\db\StudentData.mdf;Integrated Security=True;Connect Timeout=30";
         public Registration()
         {
             InitializeComponent();
@@ -23,38 +29,7 @@ namespace Portal
 
 
 
-        private void Submitbtn_Click(object sender, EventArgs e)
-        {
-            // Connection string to connect to the local database (SQL Server LocalDB)
-            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\Ashfaq\OneDrive - American International University-Bangladesh\Documents\RegData.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
-
-            // Creating the SQL connection object with the specified connection string
-            SqlConnection con = new SqlConnection(ConnectionString);
-
-            // Opening the connection to the database
-            con.Open();
-
-            // SQL command to insert data into the UserTable
-            SqlCommand sq2 = new SqlCommand("INSERT INTO RegTable(Id, Name, Age, Password) VALUES(@Id, @Name, @Age, @Password)", con);
-
-            sq2.Parameters.AddWithValue("@Id", textBox1.Text);
-            sq2.Parameters.AddWithValue("@Name", textBox3.Text);
-            sq2.Parameters.AddWithValue("@Email", textBox2.Text); // Because age is integer 
-            sq2.Parameters.AddWithValue("@Password", textBox4.Text);
-
-            // Executing the SQL command to insert the data into the database
-            sq2.ExecuteNonQuery();
-
-            con.Close();
-
-            // Displaying a message box to confirm that the user was added successfully
-            MessageBox.Show("User Added");
-
-            textBox1.Clear();
-            textBox2.Clear();
-            textBox3.Clear();
-            textBox4.Clear();
-        }
+        
 
         
 
@@ -69,5 +44,99 @@ namespace Portal
         {
 
         }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Submitbtn_Click(object sender, EventArgs e)
+        {
+            // Check if StudentId and Password fields are filled
+            if (string.IsNullOrWhiteSpace(studentIdTextBox.Text) || string.IsNullOrWhiteSpace(passwordTextBox.Text))
+            {
+                MessageBox.Show("Please fill in all fields.");
+                return;
+            }
+
+            int studentId = int.Parse(studentIdTextBox.Text);
+            string password = passwordTextBox.Text;
+
+            // Check if the student exists in the Student table
+            using (SqlConnection con = new SqlConnection(studentDbConnectionString))
+            {
+                con.Open();
+
+                // Check if the student ID exists in the Student table
+                SqlCommand checkStudentCmd = new SqlCommand("SELECT COUNT(*) FROM Student WHERE StudentId = @StudentId", con);
+                checkStudentCmd.Parameters.AddWithValue("@StudentId", studentId);
+
+                int studentCount = (int)checkStudentCmd.ExecuteScalar();
+
+                if (studentCount == 0) // If student does not exist
+                {
+                    MessageBox.Show("Student ID not found. Only enrolled students can set a password.");
+                    return;
+                }
+
+                // Check if a password already exists for this StudentId
+                SqlCommand checkLoginCmd = new SqlCommand("SELECT COUNT(*) FROM LoginCredentials WHERE StudentId = @StudentId", con);
+                checkLoginCmd.Parameters.AddWithValue("@StudentId", studentId);
+                int loginCount = (int)checkLoginCmd.ExecuteScalar();
+
+                if (loginCount > 0) // If a password already exists, prevent setting it again
+                {
+                    MessageBox.Show("A password has already been set for this Student ID. Password cannot be changed.");
+                    
+                    this.Hide();
+                    Form1 form1 = new Form1();
+                    form1.Show();
+
+                }
+
+                // If no login credentials exist for this StudentId, insert a new one
+                SqlCommand cmd = new SqlCommand("INSERT INTO LoginCredentials (StudentId, Password) VALUES (@StudentId, @Password)", con);
+                cmd.Parameters.AddWithValue("@StudentId", studentId);
+                cmd.Parameters.AddWithValue("@Password", password);
+
+                try
+                {
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show("Password has been set successfully!");
+
+                    // Optionally, clear the input fields
+                    studentIdTextBox.Clear();
+                    passwordTextBox.Clear();
+
+                    this.Hide();
+                    Form1 form1 = new Form1();
+                    form1.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+
+
+
+        }
+
+        private void passwordTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
+    
 }
+

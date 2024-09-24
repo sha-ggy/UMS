@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Windows.Forms;
 
 namespace Portal
 {
     public partial class Form1 : Form
     {
+        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\project\Portal\Portal\db\StudentData.mdf;Integrated Security=True;Connect Timeout=30";
 
         public Form1()
         {
@@ -55,14 +58,67 @@ namespace Portal
 
         private void button2_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            home ff = new home();
-            ff.Show();
+            // Check if StudentId and Password fields are empty
+            if (string.IsNullOrWhiteSpace(studentIdTextBox.Text) || string.IsNullOrWhiteSpace(passwordTextBox.Text))
+            {
+                MessageBox.Show("Please fill all blank fields", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Try block to catch any database or code exceptions
+            try
+            {
+                using (SqlConnection connect = new SqlConnection(connectionString))
+                {
+                    connect.Open();
+
+                    // SQL query to select Student based on ID and Password
+                    String selectData = "SELECT * FROM LoginCredentials WHERE StudentId = @StudentId AND Password = @Password";
+
+                    using (SqlCommand cmd = new SqlCommand(selectData, connect))
+                    {
+                        // Add parameters to avoid SQL Injection
+                        cmd.Parameters.Add("@StudentId", SqlDbType.Int).Value = int.Parse(studentIdTextBox.Text.Trim());
+                        cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = passwordTextBox.Text.Trim();
+
+                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                        DataTable table = new DataTable();
+                        adapter.Fill(table);
+
+                        // Check if any rows are returned (valid login)
+                        if (table.Rows.Count >= 1)
+                        {
+                            // Get the stored password from the database
+                            string storedPassword = table.Rows[0]["Password"].ToString();
+
+                            // Verify if the entered password matches the stored password (case-sensitive)
+                            if (passwordTextBox.Text.Trim() == storedPassword)
+                            {
+                                MessageBox.Show("Login Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                home mainForm = new home();
+                                mainForm.Show();
+                                this.Hide();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Incorrect Student ID/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Catch any exception and display the error message
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);  // Log the stack trace for debugging
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
-
+            
         }
 
         private void label6_Click(object sender, EventArgs e)
@@ -84,8 +140,46 @@ namespace Portal
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             this.Hide();
-            Form2 ff = new Form2();
+            AdminPanel ff = new AdminPanel();
             ff.Show();
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            passwordTextBox.PasswordChar = checkBox1.Checked ? '\0' : '*';
+            
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult check = MessageBox.Show("Are you sure you want to exit?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AddTeachersForm ad = new AddTeachersForm();   
+            ad.Show();
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            this.Hide();
+            AddStudentsForm fff = new AddStudentsForm();
+            fff.Show();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Registration fff = new Registration();
+            fff.Show();
         }
     }
 }

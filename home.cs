@@ -117,9 +117,14 @@ namespace Portal
 
         private void button4_Click_2(object sender, EventArgs e)
         {
-            this.Hide();
-            Form1 form1 = new Form1();  
-            form1.Show();
+            DialogResult check = MessageBox.Show("Are you sure you want to logout?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
+            {
+                Form1 lForm = new Form1();
+                lForm.Show();
+                this.Hide();
+            }
         }
     }
 }
