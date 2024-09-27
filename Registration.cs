@@ -64,14 +64,14 @@ namespace Portal
                 string otp = rnd.Next(100000, 999999).ToString();
 
                 // SQL command to insert data into the T1 table, including the generated OTP
-                SqlCommand sq2 = new SqlCommand("INSERT INTO T1(name,id,email,password,otp) VALUES(@name, @id, @email, @password, @otp)", con);
+                SqlCommand sq2 = new SqlCommand("INSERT INTO T1(name,id,email,password,otp1) VALUES(@name, @id, @email, @password, @otp1)", con);
 
                 // Adding parameters from textboxes and the OTP
                 sq2.Parameters.AddWithValue("@name", textBox1.Text);
                 sq2.Parameters.AddWithValue("@id", textBox2.Text);
                 sq2.Parameters.AddWithValue("@email", textBox3.Text);
                 sq2.Parameters.AddWithValue("@password", textBox4.Text); // Password is now confirmed
-                sq2.Parameters.AddWithValue("@otp", otp);
+                sq2.Parameters.AddWithValue("@otp1", otp);
 
                 // Execute the SQL command to insert data
                 sq2.ExecuteNonQuery();
