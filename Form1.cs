@@ -37,8 +37,8 @@ namespace Portal
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Registration ff = new Registration();
-            ff.Show();
+            
+           
         }
 
         private void Form1_Load(object sender, EventArgs e)
