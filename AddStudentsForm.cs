@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Portal
 {
@@ -21,6 +16,30 @@ namespace Portal
         {
             InitializeComponent();
             customDesign();
+            dataGridView1.AllowUserToAddRows = false;
+
+
+
+            this.Load += new EventHandler(AddStudentsForm_Load);
+            dataGridView1.DataError += DataGridView1_DataError;
+            dataGridView1.DefaultCellStyle.ForeColor = Color.Black;
+        }
+
+        private void AddStudentsForm_Load(object sender, EventArgs e)
+        {
+            // Set default row height
+            dataGridView1.RowTemplate.Height = 100;
+
+            LoadDataIntoGridView();  // Load data into the DataGridView
+        }
+
+        private void DataGridView1_DataError(object sender, DataGridViewDataErrorEventArgs e)
+        {
+            // Log or display error messages
+            MessageBox.Show($"Error in row {e.RowIndex}, column {e.ColumnIndex}: {e.Exception.Message}");
+
+            // Prevent the exception from being thrown
+            e.ThrowException = false;
         }
 
         // Method to insert data into the Student table
@@ -45,13 +64,16 @@ namespace Portal
                     cmd.Parameters.AddWithValue("@Status", status.SelectedItem?.ToString() ?? "");
                     cmd.Parameters.AddWithValue("@DateOfBirth", dateOfBirth.Value);
                     cmd.Parameters.AddWithValue("@Gender", gender.SelectedItem?.ToString() ?? "");
-                    cmd.Parameters.AddWithValue("@Photo", studentPhoto ?? new byte[0]);
+                    //cmd.Parameters.AddWithValue("@Photo", studentPhoto ?? new byte[0]);
+                    cmd.Parameters.AddWithValue("@Photo", studentPhoto ?? (object)DBNull.Value);
 
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Student inserted successfully.");
                     LoadDataIntoGridView(); // Refresh the DataGridView
                     ClearFields(); // Clear fields after insert
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -64,11 +86,18 @@ namespace Portal
         {
             using (SqlConnection con = new SqlConnection(connectionString))
             {
-                con.Open();
-                SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM Student", con);
+                // SqlCommand cmd = new SqlCommand("SELECT * FROM Student");
+                SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Student", con);
                 DataTable dt = new DataTable();
-                adapter.Fill(dt);
-                dataGridView1.DataSource = dt; // Bind data to DataGridView
+                da.Fill(dt);
+
+                // Set the data source for DataGridView
+                dataGridView1.DataSource = dt;
+
+
+                DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)dataGridView1.Columns["Photo"];
+                imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                dataGridView1.Columns["Photo"].Width = 100;  // Adjust width as needed
             }
         }
 
@@ -139,7 +168,7 @@ namespace Portal
 
 
         private void deleteBtn_Click(object sender, EventArgs e)
-        
+
         {
             if (string.IsNullOrWhiteSpace(idDelTF.Text))
             {
@@ -160,6 +189,7 @@ namespace Portal
                     if (recordCount == 0)
                     {
                         MessageBox.Show("Student ID does not exist.");
+                        ClearFields();
                         return;
                     }
 
@@ -178,7 +208,7 @@ namespace Portal
             }
         }
 
-        
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -261,7 +291,7 @@ namespace Portal
         private void button8_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AddTeachersForm f= new AddTeachersForm();   
+            AddTeachersForm f = new AddTeachersForm();
             f.Show();
             hideSubmenu();
         }
@@ -317,6 +347,31 @@ namespace Portal
             {
                 Application.Exit();
             }
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void student_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

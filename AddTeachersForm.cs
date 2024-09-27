@@ -1,16 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.IO;
+using System.Windows.Forms;
 
 
 namespace Portal
@@ -20,26 +13,46 @@ namespace Portal
 
         // Define facultyPhoto as a byte array to store the image
         private byte[] facultyPhoto = null; // Initialize it as null
+        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=F:\project\Portal\Portal\db\StudentData.mdf;Integrated Security=True;Connect Timeout=30";
+
+
         public AddTeachersForm()
         {
             InitializeComponent();
             customDesign();
+            dataGridView1.AllowUserToAddRows = false;
+
+
+            this.Load += new EventHandler(AddTeachersForm_Load);
         }
 
+        private void AddTeachersForm_Load(object sender, EventArgs e)
+        {
+            // Set default row height
+            dataGridView1.RowTemplate.Height = 100;
+
+            updateBtn_Click(this, EventArgs.Empty);  // Load data into the DataGridView
+        }
 
         // Database connection string
-        string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Ashfaq\OneDrive\Documents\FacultyData.mdf;Integrated Security=True;Connect Timeout=30";
 
         // Insert Data into the Faculty table
         private void button2_Click(object sender, EventArgs e)
         {
+
+
+            if (string.IsNullOrWhiteSpace(facultyId.Text) || string.IsNullOrWhiteSpace(facultyName.Text))
+            {
+                MessageBox.Show("Faculty ID and Name are required.");
+                return;
+            }
             try
             {
                 using (SqlConnection con = new SqlConnection(connectionString))
                 {
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Faculty (FacultyId, FacultyName, Address, Status, Position, DateOfBirth, Gender) VALUES (@FacultyId, @FacultyName, @Address, @Status, @Position, @DateOfBirth, @Gender)", con);
+                    SqlCommand cmd = new SqlCommand("INSERT INTO Faculty (FacultyId, FacultyName, Address, Status, Position, DateOfBirth, Gender,Photo) VALUES (@FacultyId, @FacultyName, @Address, @Status, @Position, @DateOfBirth, @Gender, @Photo)", con);
 
                     // Add parameters
                     cmd.Parameters.AddWithValue("@FacultyId", int.Parse(facultyId.Text));
@@ -49,23 +62,21 @@ namespace Portal
                     cmd.Parameters.AddWithValue("@Position", position.SelectedItem.ToString());
                     cmd.Parameters.AddWithValue("@DateOfBirth", dateOfBirth.Value.Date); // Using DateTimePicker to get date
                     cmd.Parameters.AddWithValue("@Gender", gender.SelectedItem.ToString());
+                    cmd.Parameters.AddWithValue("@Photo", facultyPhoto ?? new byte[0]);
+
+                    //  cmd.Parameters.AddWithValue("@Photo", facultyPhoto ?? (object)DBNull.Value);
 
 
-                    cmd.Parameters.AddWithValue("@Photo", facultyPhoto ?? (object)DBNull.Value);
                     // Execute the insert command
                     cmd.ExecuteNonQuery();
-                    MessageBox.Show("Faculty Record Inserted Successfully");
+                    MessageBox.Show("Faculty Record inserted successfully.");
+                    updateBtn_Click(this, EventArgs.Empty); // Refresh the DataGridView
+                    ClearFields(); // Clear fields after insert
 
-                    // Clear the input fields
-                    facultyId.Clear();
-                    facultyName.Clear();
-                    address.Clear();
-                    status.SelectedIndex = -1;
-                    position.SelectedIndex = -1;
-                    gender.SelectedIndex = -1;
-                    dateOfBirth.Value = DateTime.Now;
-                    pictureBox1.Image = null; // Clear the picture box
+
+
                 }
+
             }
             catch (Exception ex)
             {
@@ -73,20 +84,27 @@ namespace Portal
             }
         }
 
+        private void ClearFields()
+        {
+            // Clear the input fields
+            facultyId.Clear();
+            facultyName.Clear();
+            address.Clear();
+            status.SelectedIndex = -1;
+            position.SelectedIndex = -1;
+            gender.SelectedIndex = -1;
+            dateOfBirth.Value = DateTime.Now;
+            pictureBox1.Image = null; // Clear the picture box
+            facultyPhoto = null;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    // Display image in PictureBox
-                    pictureBox1.Image = new Bitmap(ofd.FileName);
-
-                    // Convert image to byte array for storage in the database
-                    facultyPhoto = File.ReadAllBytes(ofd.FileName);
-                }
+                pictureBox1.Image = Image.FromFile(openFileDialog.FileName);
+                facultyPhoto = File.ReadAllBytes(openFileDialog.FileName); // Store the image as byte array
             }
         }
 
@@ -99,13 +117,18 @@ namespace Portal
                 {
                     con.Open();
 
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM Faculty", con);
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    // SqlCommand cmd = new SqlCommand("SELECT * FROM Faculty");
+                    SqlDataAdapter da = new SqlDataAdapter("SELECT * FROM Faculty", con);
                     DataTable dt = new DataTable();
                     da.Fill(dt);
 
                     // Set the data source for DataGridView
                     dataGridView1.DataSource = dt;
+
+
+                    DataGridViewImageColumn imageColumn = (DataGridViewImageColumn)dataGridView1.Columns["Photo"];
+                    imageColumn.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                    dataGridView1.Columns["Photo"].Width = 100;  // Adjust width as needed
                 }
             }
             catch (Exception ex)
@@ -126,7 +149,7 @@ namespace Portal
         private void button7_Click(object sender, EventArgs e)
         {
             this.Hide();
-            AddStudentsForm f= new AddStudentsForm();   
+            AddStudentsForm f = new AddStudentsForm();
             f.Show();
             hideSubmenu();
         }
@@ -238,24 +261,7 @@ namespace Portal
 
         private void clearBtn_Click(object sender, EventArgs e)
         {
-            // Clear all text boxes
-            facultyId.Clear();
-            facultyName.Clear();
-            address.Clear();
-
-            // Reset combo boxes
-            status.SelectedIndex = -1; // Clear Status
-            position.SelectedIndex = -1; // Clear Position
-            gender.SelectedIndex = -1; // Clear Gender
-
-            // Reset DateTimePicker to current date
-            dateOfBirth.Value = DateTime.Now;
-
-            // Clear the PictureBox
-            pictureBox1.Image = null;
-
-            // Clear the facultyPhoto byte array
-            facultyPhoto = null;
+            ClearFields();
         }
 
         private void label9_Click(object sender, EventArgs e)

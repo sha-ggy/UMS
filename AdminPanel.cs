@@ -25,33 +25,43 @@ namespace Portal
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (textBox2.Text == "" || textBox1.Text == "")
+            // Check if AdminID and Password fields are empty
+            if (string.IsNullOrWhiteSpace(textBox2.Text) || string.IsNullOrWhiteSpace(textBox1.Text))
             {
                 MessageBox.Show("Please fill all blank fields", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
-            else
+
+            try
             {
-                try
+                // Open the database connection
+                connect.Open();
+
+                // SQL query to select Admin based on AdminID and Password
+                string selectData = "SELECT * FROM Admin WHERE AdminID = @AdminID AND Password = @Password";
+
+                using (SqlCommand cmd = new SqlCommand(selectData, connect))
                 {
-                    connect.Open();
+                    // Add parameters to avoid SQL Injection
+                    cmd.Parameters.Add("@AdminID", SqlDbType.VarChar).Value = textBox2.Text.Trim();
+                    cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = textBox1.Text.Trim();
 
-                    String selectData = "SELECT * FROM Admin WHERE AdminID = '100-200' AND Password = 'admin100'";
+                    SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                    DataTable table = new DataTable();
+                    adapter.Fill(table);
 
-                    using (SqlCommand cmd = new SqlCommand(selectData, connect))
+                    // Check if any rows are returned (valid login)
+                    if (table.Rows.Count == 1)
                     {
-                        //cmd.Parameters.AddWithValue("@AdminID", textBox2.Text.Trim());
-                        //cmd.Parameters.AddWithValue("@Password", textBox1.Text.Trim());
-                        cmd.Parameters.Add("@AdminID", SqlDbType.VarChar).Value = textBox2.Text.Trim();
-                        cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = textBox1.Text.Trim();
+                        // Get the stored password from the database (if needed for further validation)
+                        string storedPassword = table.Rows[0]["Password"].ToString();
 
-                        SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                        DataTable table = new DataTable();
-                        adapter.Fill(table);
-
-                        if (table.Rows.Count >= 1)
+                        // Verify if the entered password matches the stored password (case-sensitive)
+                        if (string.Equals(textBox1.Text.Trim(), storedPassword, StringComparison.Ordinal))
                         {
                             MessageBox.Show("Login Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                            // Navigate to the next form
                             Form2 mForm = new Form2();
                             mForm.Show();
                             this.Hide();
@@ -59,26 +69,31 @@ namespace Portal
                         else
                         {
                             MessageBox.Show("Incorrect AdminID/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
                         }
                     }
-
+                    else
+                    {
+                        // Handle case where AdminID does not exist or password is incorrect
+                        MessageBox.Show("Incorrect AdminID/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                catch (Exception ex)
-                {
-
-                    Console.WriteLine("Stack Trace: " + ex.StackTrace);  // To see where the error is happening
-                    MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                
             }
-                finally
+            catch (Exception ex)
+            {
+                // Log the exception for debugging purposes
+                Console.WriteLine("Stack Trace: " + ex.StackTrace);  // To see where the error is happening
+                MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                // Always close the connection
+                if (connect.State == ConnectionState.Open)
                 {
                     connect.Close();
                 }
-
-
             }
         }
+
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {

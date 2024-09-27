@@ -32,35 +32,36 @@ namespace Portal
 
         private void customDesign()
         {
-            //panel2.Visible = false;
-            //panel1.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
 
         }
+
         private void hideSubmenu()
         {
-            //if (panel1.Visible == true)
-            //{
-            //    panel1.Visible = false;
-            //}
-            //if (panel2.Visible == true)
-            //{
-            //    panel2.Visible = false;
-            //}
+            if (panel5.Visible == true)
+            {
+                panel5.Visible = false;
+            }
+            if (panel6.Visible == true)
+            {
+                panel6.Visible = false;
+            }
         }
         private void showSubmenu(Panel submenu)
         {
-            //if (submenu.Visible == false)
-            //{
-            //    hideSubmenu();
-            //    submenu.Visible = true;
+            if (submenu.Visible == false)
+            {
+                hideSubmenu();
+                submenu.Visible = true;
 
-            //}
-            //else
-            //    submenu.Visible = false;
+            }
+            else
+                submenu.Visible = false;
         }
 
 
-        
+
 
         private void button3_Click(object sender, EventArgs e)
         {
@@ -112,14 +113,20 @@ namespace Portal
 
         private void button13_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            Form2 obj = new Form2();    
-            obj.Show();
+            DialogResult check = MessageBox.Show("Are you sure you want to logout?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
+            {
+                this.Hide();
+                Form2 obj = new Form2();
+                obj.Show();
+            }
+            hideSubmenu();
         }
 
         private void button6_Click_1(object sender, EventArgs e)
         {
-
+            showSubmenu(panel5);
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -132,6 +139,7 @@ namespace Portal
                 lForm.Show();
                 this.Hide();
             }
+            hideSubmenu();
         }
 
         private void button8_Click(object sender, EventArgs e)
@@ -139,17 +147,41 @@ namespace Portal
             this.Hide(); 
             AddTeachersForm lForm = new AddTeachersForm();
             lForm.Show();
+            hideSubmenu();
             
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-
+            this.Hide();
+            AddStudentsForm lForm = new AddStudentsForm();
+            lForm.Show();
+            hideSubmenu();
         }
 
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            hideSubmenu();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            showSubmenu(panel6);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            DialogResult check = MessageBox.Show("Are you sure you want to exit?", "Confirmation Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (check == DialogResult.Yes)
+            {
+                Application.Exit();
+            }
         }
     }
 }

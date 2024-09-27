@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.panel2 = new System.Windows.Forms.Panel();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.idDelTF = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.deleteBtn = new System.Windows.Forms.Button();
             this.position = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -38,6 +42,7 @@
             this.addBtn = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.status = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.address = new System.Windows.Forms.TextBox();
@@ -52,6 +57,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.label1 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel6 = new System.Windows.Forms.Panel();
             this.button12 = new System.Windows.Forms.Button();
             this.button13 = new System.Windows.Forms.Button();
@@ -61,27 +67,21 @@
             this.button7 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.idDelTF = new System.Windows.Forms.TextBox();
-            this.label9 = new System.Windows.Forms.Label();
-            this.deleteBtn = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel2.SuspendLayout();
+            this.panel7.SuspendLayout();
             this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
-            this.panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.position);
@@ -103,11 +103,60 @@
             this.panel2.Controls.Add(this.label3);
             this.panel2.Controls.Add(this.facultyId);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Location = new System.Drawing.Point(146, 266);
+            this.panel2.Location = new System.Drawing.Point(146, 280);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(826, 269);
             this.panel2.TabIndex = 3;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // panel7
+            // 
+            this.panel7.BackColor = System.Drawing.Color.DimGray;
+            this.panel7.Controls.Add(this.idDelTF);
+            this.panel7.Controls.Add(this.label9);
+            this.panel7.Controls.Add(this.deleteBtn);
+            this.panel7.Location = new System.Drawing.Point(592, 16);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(217, 236);
+            this.panel7.TabIndex = 22;
+            // 
+            // idDelTF
+            // 
+            this.idDelTF.ForeColor = System.Drawing.Color.Black;
+            this.idDelTF.Location = new System.Drawing.Point(36, 96);
+            this.idDelTF.Multiline = true;
+            this.idDelTF.Name = "idDelTF";
+            this.idDelTF.Size = new System.Drawing.Size(144, 25);
+            this.idDelTF.TabIndex = 26;
+            this.idDelTF.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.ForeColor = System.Drawing.Color.White;
+            this.label9.Location = new System.Drawing.Point(80, 60);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(55, 13);
+            this.label9.TabIndex = 25;
+            this.label9.Text = "Faculty ID";
+            this.label9.Click += new System.EventHandler(this.label9_Click);
+            // 
+            // deleteBtn
+            // 
+            this.deleteBtn.BackColor = System.Drawing.Color.Blue;
+            this.deleteBtn.FlatAppearance.BorderSize = 0;
+            this.deleteBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.deleteBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.deleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.deleteBtn.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.deleteBtn.ForeColor = System.Drawing.Color.White;
+            this.deleteBtn.Location = new System.Drawing.Point(55, 141);
+            this.deleteBtn.Name = "deleteBtn";
+            this.deleteBtn.Size = new System.Drawing.Size(102, 35);
+            this.deleteBtn.TabIndex = 24;
+            this.deleteBtn.Text = "Delete";
+            this.deleteBtn.UseVisualStyleBackColor = false;
+            this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
             // 
             // position
             // 
@@ -152,7 +201,7 @@
             // 
             // clearBtn
             // 
-            this.clearBtn.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.clearBtn.BackColor = System.Drawing.Color.Blue;
             this.clearBtn.FlatAppearance.BorderSize = 0;
             this.clearBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.clearBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
@@ -169,7 +218,7 @@
             // 
             // updateBtn
             // 
-            this.updateBtn.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.updateBtn.BackColor = System.Drawing.Color.Blue;
             this.updateBtn.FlatAppearance.BorderSize = 0;
             this.updateBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.updateBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
@@ -186,7 +235,7 @@
             // 
             // addBtn
             // 
-            this.addBtn.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.addBtn.BackColor = System.Drawing.Color.Blue;
             this.addBtn.FlatAppearance.BorderSize = 0;
             this.addBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.addBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
@@ -203,7 +252,7 @@
             // 
             // button1
             // 
-            this.button1.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.button1.BackColor = System.Drawing.Color.Blue;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
@@ -227,6 +276,16 @@
             this.panel3.Size = new System.Drawing.Size(80, 86);
             this.panel3.TabIndex = 12;
             this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.DimGray;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(80, 83);
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // status
             // 
@@ -270,8 +329,7 @@
             this.gender.FormattingEnabled = true;
             this.gender.Items.AddRange(new object[] {
             "Male",
-            "Female",
-            "Others"});
+            "Female"});
             this.gender.Location = new System.Drawing.Point(97, 99);
             this.gender.Name = "gender";
             this.gender.Size = new System.Drawing.Size(144, 21);
@@ -324,23 +382,23 @@
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel1.Controls.Add(this.dataGridView1);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(146, 0);
+            this.panel1.Location = new System.Drawing.Point(146, 12);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(826, 260);
+            this.panel1.Size = new System.Drawing.Size(826, 262);
             this.panel1.TabIndex = 2;
             this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // dataGridView1
             // 
-            this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 34);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 34);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(787, 214);
+            this.dataGridView1.Size = new System.Drawing.Size(794, 213);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -348,7 +406,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(33, 12);
+            this.label1.Location = new System.Drawing.Point(19, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 19);
             this.label1.TabIndex = 0;
@@ -356,6 +414,7 @@
             // 
             // panel4
             // 
+            this.panel4.BackColor = System.Drawing.Color.White;
             this.panel4.Controls.Add(this.button2);
             this.panel4.Controls.Add(this.panel6);
             this.panel4.Controls.Add(this.button10);
@@ -367,6 +426,22 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(131, 561);
             this.panel4.TabIndex = 4;
+            // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.Blue;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.White;
+            this.button2.Location = new System.Drawing.Point(0, 529);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
+            this.button2.Name = "button2";
+            this.button2.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.button2.Size = new System.Drawing.Size(131, 32);
+            this.button2.TabIndex = 10;
+            this.button2.Text = "Exit";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // panel6
             // 
@@ -389,7 +464,7 @@
             this.button12.Location = new System.Drawing.Point(0, 32);
             this.button12.Margin = new System.Windows.Forms.Padding(2);
             this.button12.Name = "button12";
-            this.button12.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.button12.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.button12.Size = new System.Drawing.Size(131, 32);
             this.button12.TabIndex = 6;
             this.button12.Text = "Logout";
@@ -407,7 +482,7 @@
             this.button13.Location = new System.Drawing.Point(0, 0);
             this.button13.Margin = new System.Windows.Forms.Padding(2);
             this.button13.Name = "button13";
-            this.button13.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.button13.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.button13.Size = new System.Drawing.Size(131, 32);
             this.button13.TabIndex = 5;
             this.button13.Text = "Home";
@@ -417,7 +492,7 @@
             // 
             // button10
             // 
-            this.button10.BackColor = System.Drawing.Color.MediumBlue;
+            this.button10.BackColor = System.Drawing.Color.Blue;
             this.button10.Dock = System.Windows.Forms.DockStyle.Top;
             this.button10.FlatAppearance.BorderSize = 0;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -455,7 +530,7 @@
             this.button9.Location = new System.Drawing.Point(0, 64);
             this.button9.Margin = new System.Windows.Forms.Padding(2);
             this.button9.Name = "button9";
-            this.button9.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.button9.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.button9.Size = new System.Drawing.Size(131, 32);
             this.button9.TabIndex = 7;
             this.button9.Text = "Course";
@@ -473,7 +548,7 @@
             this.button7.Location = new System.Drawing.Point(0, 32);
             this.button7.Margin = new System.Windows.Forms.Padding(2);
             this.button7.Name = "button7";
-            this.button7.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.button7.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.button7.Size = new System.Drawing.Size(131, 32);
             this.button7.TabIndex = 6;
             this.button7.Text = "Student";
@@ -491,7 +566,7 @@
             this.button8.Location = new System.Drawing.Point(0, 0);
             this.button8.Margin = new System.Windows.Forms.Padding(2);
             this.button8.Name = "button8";
-            this.button8.Padding = new System.Windows.Forms.Padding(22, 0, 0, 0);
+            this.button8.Padding = new System.Windows.Forms.Padding(30, 0, 0, 0);
             this.button8.Size = new System.Drawing.Size(131, 32);
             this.button8.TabIndex = 5;
             this.button8.Text = "Teacher";
@@ -501,7 +576,7 @@
             // 
             // button6
             // 
-            this.button6.BackColor = System.Drawing.Color.MediumBlue;
+            this.button6.BackColor = System.Drawing.Color.Blue;
             this.button6.Dock = System.Windows.Forms.DockStyle.Top;
             this.button6.FlatAppearance.BorderSize = 0;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -517,73 +592,6 @@
             this.button6.UseVisualStyleBackColor = false;
             this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
-            // panel7
-            // 
-            this.panel7.BackColor = System.Drawing.Color.DimGray;
-            this.panel7.Controls.Add(this.idDelTF);
-            this.panel7.Controls.Add(this.label9);
-            this.panel7.Controls.Add(this.deleteBtn);
-            this.panel7.Location = new System.Drawing.Point(592, 16);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(217, 236);
-            this.panel7.TabIndex = 22;
-            // 
-            // idDelTF
-            // 
-            this.idDelTF.ForeColor = System.Drawing.Color.Black;
-            this.idDelTF.Location = new System.Drawing.Point(36, 96);
-            this.idDelTF.Multiline = true;
-            this.idDelTF.Name = "idDelTF";
-            this.idDelTF.Size = new System.Drawing.Size(144, 25);
-            this.idDelTF.TabIndex = 26;
-            this.idDelTF.TextChanged += new System.EventHandler(this.textBox1_TextChanged_1);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.ForeColor = System.Drawing.Color.White;
-            this.label9.Location = new System.Drawing.Point(80, 60);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(55, 13);
-            this.label9.TabIndex = 25;
-            this.label9.Text = "Faculty ID";
-            this.label9.Click += new System.EventHandler(this.label9_Click);
-            // 
-            // deleteBtn
-            // 
-            this.deleteBtn.BackColor = System.Drawing.Color.CornflowerBlue;
-            this.deleteBtn.FlatAppearance.BorderSize = 0;
-            this.deleteBtn.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.deleteBtn.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.deleteBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.deleteBtn.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteBtn.ForeColor = System.Drawing.Color.White;
-            this.deleteBtn.Location = new System.Drawing.Point(55, 141);
-            this.deleteBtn.Name = "deleteBtn";
-            this.deleteBtn.Size = new System.Drawing.Size(102, 35);
-            this.deleteBtn.TabIndex = 24;
-            this.deleteBtn.Text = "Delete";
-            this.deleteBtn.UseVisualStyleBackColor = false;
-            this.deleteBtn.Click += new System.EventHandler(this.deleteBtn_Click);
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.Color.MediumBlue;
-            this.button2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.Location = new System.Drawing.Point(0, 325);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.button2.Size = new System.Drawing.Size(131, 32);
-            this.button2.TabIndex = 10;
-            this.button2.Text = "Exit";
-            this.button2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackgroundImage = global::Portal.Properties.Resources.download;
@@ -594,19 +602,11 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(131, 99);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(80, 83);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
             // AddTeachersForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.SteelBlue;
             this.ClientSize = new System.Drawing.Size(984, 561);
             this.Controls.Add(this.panel4);
             this.Controls.Add(this.panel2);
@@ -616,16 +616,16 @@
             this.Text = "AddTeachersForm";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }

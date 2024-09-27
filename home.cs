@@ -13,7 +13,7 @@ namespace Portal
 
         private void button1_Click(object sender, EventArgs e)
         {
-            showSubmenu(flowLayoutPanel1);
+            showSubmenu(panel5);
 
         }
 
@@ -36,19 +36,19 @@ namespace Portal
 
         private void customDesign()
         {
-            flowLayoutPanel1.Visible = false;
-            flowLayoutPanel3.Visible = false;
+            panel5.Visible = false;
+            panel6.Visible = false;
 
         }
         private void hideSubmenu()
         {
-            if (flowLayoutPanel1.Visible == true)
+            if (panel5.Visible == true)
             {
-                flowLayoutPanel1.Visible = false;
+                panel5.Visible = false;
             }
-            if (flowLayoutPanel3.Visible == true)
+            if (panel6.Visible == true)
             {
-                flowLayoutPanel3.Visible = false;
+                panel6.Visible = false;
             }
         }
         private void showSubmenu(Panel submenu)
@@ -70,7 +70,7 @@ namespace Portal
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            showSubmenu(flowLayoutPanel3);
+
         }
 
         private void flowLayoutPanel3_Paint(object sender, PaintEventArgs e)
@@ -112,7 +112,7 @@ namespace Portal
 
         private void button3_Click_1(object sender, EventArgs e)
         {
-            showSubmenu(flowLayoutPanel3);
+            showSubmenu(panel6);
         }
 
         private void button4_Click_2(object sender, EventArgs e)
@@ -125,6 +125,16 @@ namespace Portal
                 lForm.Show();
                 this.Hide();
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }

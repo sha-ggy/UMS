@@ -65,7 +65,6 @@ namespace Portal
                 return;
             }
 
-            // Try block to catch any database or code exceptions
             try
             {
                 using (SqlConnection connect = new SqlConnection(connectionString))
@@ -73,26 +72,25 @@ namespace Portal
                     connect.Open();
 
                     // SQL query to select Student based on ID and Password
-                    String selectData = "SELECT * FROM LoginCredentials WHERE StudentId = @StudentId AND Password = @Password";
+                    String selectData = "SELECT * FROM LoginCredentials WHERE StudentId = @StudentId";
 
                     using (SqlCommand cmd = new SqlCommand(selectData, connect))
                     {
                         // Add parameters to avoid SQL Injection
                         cmd.Parameters.Add("@StudentId", SqlDbType.Int).Value = int.Parse(studentIdTextBox.Text.Trim());
-                        cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = passwordTextBox.Text.Trim();
 
                         SqlDataAdapter adapter = new SqlDataAdapter(cmd);
                         DataTable table = new DataTable();
                         adapter.Fill(table);
 
-                        // Check if any rows are returned (valid login)
-                        if (table.Rows.Count >= 1)
+                        // Check if any rows are returned (valid StudentId)
+                        if (table.Rows.Count == 1)
                         {
                             // Get the stored password from the database
                             string storedPassword = table.Rows[0]["Password"].ToString();
 
                             // Verify if the entered password matches the stored password (case-sensitive)
-                            if (passwordTextBox.Text.Trim() == storedPassword)
+                            if (string.Equals(passwordTextBox.Text.Trim(), storedPassword, StringComparison.Ordinal))
                             {
                                 MessageBox.Show("Login Successfully!", "Information Message", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 home mainForm = new home();
@@ -104,6 +102,11 @@ namespace Portal
                                 MessageBox.Show("Incorrect Student ID/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                         }
+                        else
+                        {
+                            // Handle case where StudentId does not exist in the database
+                            MessageBox.Show("Incorrect Student ID/Password", "Error Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
             }
@@ -113,8 +116,8 @@ namespace Portal
                 Console.WriteLine("Stack Trace: " + ex.StackTrace);  // Log the stack trace for debugging
                 MessageBox.Show("Error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
         }
+
 
         private void textBox1_TextChanged_1(object sender, EventArgs e)
         {
@@ -179,6 +182,20 @@ namespace Portal
         {
             this.Hide();
             Registration fff = new Registration();
+            fff.Show();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            StudentEnrollment fff = new StudentEnrollment();
+            fff.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            AddCoursesForm fff = new AddCoursesForm();
             fff.Show();
         }
     }
