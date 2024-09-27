@@ -23,9 +23,11 @@ namespace OTPVerification
             string enteredOtp = textBox1.Text; // Get OTP entered by the user
 
             // Connection string to connect to the database
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            //  string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
 
-            SqlConnection con = new SqlConnection(connectionString);
+            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=False";
+
+            SqlConnection con = new SqlConnection(ConnectionString);
 
             try
             {

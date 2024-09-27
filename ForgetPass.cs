@@ -68,8 +68,9 @@ namespace Portal
         // Function to check if the email exists in the database
         private bool CheckEmailExists(string email)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            // string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 string query = "SELECT COUNT(*) FROM T1 WHERE email = @Email";
                 SqlCommand command = new SqlCommand(query, connection);
@@ -93,8 +94,9 @@ namespace Portal
         // Function to save OTP to the database
         private bool SaveOtpToDatabase(string email, string otp)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //  string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 string query = "UPDATE T1 SET otp2 = @OTP, OTPExpiry = @Expiry WHERE email = @Email";
                 SqlCommand command = new SqlCommand(query, connection);
@@ -166,8 +168,9 @@ namespace Portal
         // Function to validate the OTP from the database
         private bool ValidateOtp(string email, string otp)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 string query = "SELECT otp2, OTPExpiry FROM T1 WHERE email = @Email";
                 SqlCommand command = new SqlCommand(query, connection);

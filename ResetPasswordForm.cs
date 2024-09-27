@@ -64,8 +64,9 @@ namespace Portal
         // Function to update the password in the database
         private bool UpdatePasswordInDatabase(string email, string newPassword)
         {
-            string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            //string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=True";
+            string ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""F:\csharp\db\Login and Registration.mdf"";Integrated Security=True;Connect Timeout=30;Encrypt=False";
+            using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
                 string query = "UPDATE T1 SET password = @Password WHERE email = @Email";
                 SqlCommand command = new SqlCommand(query, connection);
