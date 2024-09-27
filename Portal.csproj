@@ -70,11 +70,11 @@
     <Compile Include="AdminPanel.Designer.cs">
       <DependentUpon>AdminPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="ForgetPass.cs">
+    <Compile Include="ForgetPassword.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ForgetPass.Designer.cs">
-      <DependentUpon>ForgetPass.cs</DependentUpon>
+    <Compile Include="ForgetPassword.Designer.cs">
+      <DependentUpon>ForgetPassword.cs</DependentUpon>
     </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -108,6 +108,12 @@
     <Compile Include="Registration.Designer.cs">
       <DependentUpon>Registration.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResetPassword.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResetPassword.Designer.cs">
+      <DependentUpon>ResetPassword.cs</DependentUpon>
+    </Compile>
     <Compile Include="ResetPasswordForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -119,6 +125,12 @@
     </Compile>
     <Compile Include="StudentEnrollment.Designer.cs">
       <DependentUpon>StudentEnrollment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VerifyOtp.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VerifyOtp.Designer.cs">
+      <DependentUpon>VerifyOtp.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="AddCoursesForm.resx">
       <DependentUpon>AddCoursesForm.cs</DependentUpon>
@@ -132,8 +144,8 @@
     <EmbeddedResource Include="AdminPanel.resx">
       <DependentUpon>AdminPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ForgetPass.resx">
-      <DependentUpon>ForgetPass.cs</DependentUpon>
+    <EmbeddedResource Include="ForgetPassword.resx">
+      <DependentUpon>ForgetPassword.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -160,11 +172,17 @@
     <EmbeddedResource Include="Registration.resx">
       <DependentUpon>Registration.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ResetPassword.resx">
+      <DependentUpon>ResetPassword.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ResetPasswordForm.resx">
       <DependentUpon>ResetPasswordForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StudentEnrollment.resx">
       <DependentUpon>StudentEnrollment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VerifyOtp.resx">
+      <DependentUpon>VerifyOtp.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

@@ -37,7 +37,7 @@ namespace Portal
         private void button1_Click(object sender, EventArgs e)
         {
             this.Hide();
-            ForgetPass forgetPass = new ForgetPass();
+            ForgetPassword forgetPass = new ForgetPassword();
             forgetPass.Show();
            
         }
